@@ -1,0 +1,53 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jest": true
+    },
+    "extends": [
+        "plugin:react/recommended"
+        ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        },
+        "sourceType": "module",
+        "ecmaVersion": 2018
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            "tab"
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-unused-vars": [
+            "off", {
+                "vars": "local", 
+                "args": "after-used", 
+                "ignoreRestSiblings": true,
+                "varsIgnorePattern": "enzyme"
+            }
+        ],
+        "react/prop-types": [0]
+    },
+    "globals": {
+        "describe": false,
+        "expect": false,
+        "it": false,
+        "process": false
+    }
+}
