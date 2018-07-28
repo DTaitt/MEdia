@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import _Layout from './_layout';
 
 export default class About extends Component{
 	render() {
 		return(
-			<Link to='/'>Home</Link>
+			<_Layout pageType='about' >
+				<p>Im for the about page</p>
+			</_Layout>
 		);
 	}
 }
