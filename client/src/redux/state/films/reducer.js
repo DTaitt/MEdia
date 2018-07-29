@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 
 export function dataReducer(data = [], action) {
 	switch (action.type) {
-	case 'RESOLVED_INITIALIZE_FONTS':
+	case 'RESOLVED_INITIALIZE_FILMS':
 		return [...data, ...action.payload];
 	default:
 		return data;
@@ -11,8 +11,8 @@ export function dataReducer(data = [], action) {
 
 export function hasBeenLoadedReducer(hasBeenLoaded = false, action) {
 	switch (action.type) {
-	case 'RESOLVED_INITIALIZE_FONTS':
-	case 'FONTS_ALREADY_LOADED':
+	case 'RESOLVED_INITIALIZE_FILMS':
+	case 'FILMS_ALREADY_LOADED':
 		return true;
 	default:
 		return false;

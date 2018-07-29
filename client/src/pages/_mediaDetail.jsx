@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { Card } from 'antd';
 import {Link} from 'react-router-dom';
 import _Layout from './_layout';
-import {initializeFonts} from 'redux/state/films/actions';
+import {initializeFilms} from 'redux/state/films/actions';
 import FilmItem from 'components/FilmItem/FilmItem';
 import {parseURlId} from '../utilities/utilities';
 
@@ -18,7 +18,7 @@ class _MediaDetail extends Component{
 	}
 
 	async componentDidMount() {
-		await this.props.initializeFonts();
+		await this.props.initializeFilms();
 		this.setMedia();
 	}
 
@@ -61,7 +61,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = ({
-	initializeFonts
+	initializeFilms
 });
 
 const ConnectedMediaDetail = connect(mapStateToProps, mapDispatchToProps)(_MediaDetail);
