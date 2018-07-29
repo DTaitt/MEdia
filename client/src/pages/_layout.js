@@ -15,13 +15,19 @@ export default class _Layout extends Component{
 					<div className="logo" />
 					<Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
 						<Menu.Item key="1">
-							<Icon type="user" />
+							<Icon type="home" />
 							<span className="nav-text">
 								<Link to='/'>Home</Link>
 							</span>
 						</Menu.Item>
 						<Menu.Item key="2">
 							<Icon type="video-camera" />
+							<span className="nav-text">
+								<Link to='/films'>Films</Link>
+							</span>
+						</Menu.Item>
+						<Menu.Item key="3">
+							<Icon type="info-circle-o" />
 							<span className="nav-text">
 								<Link to='/about'>About</Link>
 							</span>
