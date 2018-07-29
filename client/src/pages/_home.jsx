@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import _Layout from './_layout';
 
-export default class Home extends Component{
+export default class _Home extends Component{
 	render() {
 		return(
 			<_Layout pageType='home' >
