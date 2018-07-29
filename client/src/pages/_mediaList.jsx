@@ -27,12 +27,13 @@ class _MediaList extends Component{
 }
 
 const mapStateToProps = state => ({
-	films: state.films,
+	films: state.films.data,
+	hasBeenLoaded: state.films.hasBeenLoaded
 });
 
 const mapDispatchToProps = ({
 	initializeFonts
 });
 
-const ConnectedList = connect(mapStateToProps, mapDispatchToProps)(_MediaList);
-export default ConnectedList;
+const ConnectedMediaList = connect(mapStateToProps, mapDispatchToProps)(_MediaList);
+export default ConnectedMediaList;

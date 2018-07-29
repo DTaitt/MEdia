@@ -6,3 +6,8 @@ export const url = {
 export function removeSpaces(input) {
 	return input.split(' ').join('-').toLowerCase();
 }
+
+export function parseURlId(url) {
+	let lastIndex = url.lastIndexOf('-');
+	return url.slice(lastIndex + 1);
+}
