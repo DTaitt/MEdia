@@ -1,24 +1,31 @@
-import React, { Component } from 'react';
-import { List, Avatar, Card } from 'antd';
+import React from 'react';
+import { List, Card } from 'antd';
 import {Link} from 'react-router-dom';
-import {url} from '../../utilities/utilities';
+import {url, removeSpaces} from 'utilities/utilities';
 
-export default class FilmItem extends Component{
-	render() {
-		return (
-			<List.Item>
-				<Card 
-					title={<Link to={`/films/${this.props.item.title}`}>{this.props.item.title}</Link>}
-					cover={<img alt="example" src={`${url.imgPrefix}${this.props.item.poster_path}`} />}
-					extra={this.props.item.vote_average}
-				>
-					<Card.Meta
-						title={<Link to={`/films/${this.props.item.title}`}>See More...</Link>}
-						description={this.props.item.release_date}
-					/>
+export default function FilmItem({item}){
+	const {
+		title,
+		id,
+		poster_path,
+		vote_average,
+		release_date
+	} = item;
+	const mediaUrl = `/films/${removeSpaces(title)}-${id}`;
+	const mediaImageUrl = `${url.imgPrefix}${poster_path}`;
+	return (
+		<List.Item>
+			<Card 
+				title={<Link to={mediaUrl}>{title}</Link>}
+				cover={<img alt={title} src={mediaImageUrl} />}
+				extra={vote_average}
+			>
+				<Card.Meta
+					title={<Link to={mediaUrl}>See More...</Link>}
+					description={release_date}
+				/>
                 
-				</Card>
-			</List.Item>
-		);
-	}
+			</Card>
+		</List.Item>
+	);
 }

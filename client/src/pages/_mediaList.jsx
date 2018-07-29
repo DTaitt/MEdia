@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { List } from 'antd';
 import _Layout from './_layout';
-import {initializeFonts} from '../redux/state/films/actions';
-import FilmItem from '../components/FilmItem/FilmItem';
+import {initializeFonts} from 'redux/state/films/actions';
+import FilmItem from 'components/FilmItem/FilmItem';
 
-class _List extends Component{
+class _MediaList extends Component{
 
 	componentDidMount() {
 		this.props.initializeFonts();
@@ -27,12 +27,13 @@ class _List extends Component{
 }
 
 const mapStateToProps = state => ({
-	films: state.films,
+	films: state.films.data,
+	hasBeenLoaded: state.films.hasBeenLoaded
 });
 
 const mapDispatchToProps = ({
 	initializeFonts
 });
 
-const ConnectedList = connect(mapStateToProps, mapDispatchToProps)(_List);
-export default ConnectedList;
+const ConnectedMediaList = connect(mapStateToProps, mapDispatchToProps)(_MediaList);
+export default ConnectedMediaList;
