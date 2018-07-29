@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import _Layout from './_layout';
+import {initializeFonts} from '../redux/state/films/actions';
 
-export default class ListPage extends Component{
+class ListPage extends Component{
+
+	async componentDidMount() {
+		this.props.initializeFonts();
+	}
+	
 	render() {
 		return(
 			<_Layout pageType={`${this.props.match.path}`} >
@@ -10,3 +17,14 @@ export default class ListPage extends Component{
 		);
 	}
 }
+
+const mapStateToProps = state => ({
+	films: state.films,
+});
+
+const mapDispatchToProps = ({
+	initializeFonts
+});
+
+const ConnectedListPage = connect(mapStateToProps, mapDispatchToProps)(ListPage);
+export default ConnectedListPage;
