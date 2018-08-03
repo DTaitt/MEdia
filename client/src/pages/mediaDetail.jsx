@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import { Card } from 'antd';
-import _Layout from './_layout';
+import Template from './template';
 import {initializeFilms} from 'redux/state/films/actions';
 import {parseURlId, url} from 'utilities/utilities';
 
@@ -33,7 +33,7 @@ class _MediaDetail extends PureComponent{
 	render() {
 		return(
 			this.state.hasMediaBeenSet 
-				? (<_Layout pageType={`${this.props.match.path}`} mediaTitle={this.state.media.title} >
+				? (<Template pageType={`${this.props.match.path}`} mediaTitle={this.state.media.title} >
 					<Card 
 						title={this.state.media.title}
 						cover={<img alt={this.state.media.title} src={`${url.imgPrefix}${this.state.media.poster_path}`} />}
@@ -44,7 +44,7 @@ class _MediaDetail extends PureComponent{
 						<p>{this.state.media.vote_count} votes</p>
 						<p>{this.state.media.popularity} popularity</p>
 					</Card>
-				</_Layout>) 
+				</Template>) 
 				: null
 		);
 	}

@@ -1,12 +1,12 @@
 import React, {PureComponent} from 'react';
-import _Layout from './_layout';
+import Template from './template';
 
 export default class _About extends PureComponent{
 	render() {
 		return(
-			<_Layout pageType='about' >
+			<Template pageType='about' >
 				<p>Im for the about page</p>
-			</_Layout>
+			</Template>
 		);
 	}
 }

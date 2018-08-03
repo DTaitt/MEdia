@@ -3,7 +3,7 @@ import { List, Card } from 'antd';
 import {Link} from 'react-router-dom';
 import {url, removeSpaces} from 'utilities/utilities';
 
-export default function FilmItem({item}){
+export default function MediaItem({item}){
 	const {
 		title,
 		id,
