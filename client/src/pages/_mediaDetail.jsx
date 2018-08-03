@@ -1,13 +1,11 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import { Card } from 'antd';
-import {Link} from 'react-router-dom';
 import _Layout from './_layout';
 import {initializeFilms} from 'redux/state/films/actions';
-import FilmItem from 'components/FilmItem/FilmItem';
-import {parseURlId} from '../utilities/utilities';
+import {parseURlId, url} from 'utilities/utilities';
 
-class _MediaDetail extends Component{
+class _MediaDetail extends PureComponent{
 
 	constructor(props) {
 		super();
@@ -35,19 +33,16 @@ class _MediaDetail extends Component{
 	render() {
 		return(
 			this.state.hasMediaBeenSet 
-				? (<_Layout pageType={`${this.props.match.path}`} >
+				? (<_Layout pageType={`${this.props.match.path}`} mediaTitle={this.state.media.title} >
 					<Card 
 						title={this.state.media.title}
-						cover={<img alt={this.state.media.title} src={this.state.media.poster_path} />}
+						cover={<img alt={this.state.media.title} src={`${url.imgPrefix}${this.state.media.poster_path}`} />}
 						extra={this.state.media.vote_average}
 					>
-						<Card.Meta
-							title={<Link to='{mediaUrl}'>See More...</Link>}
-							description={this.state.media.release_date}
-						/>
+						<Card.Meta />
 						<p>{this.state.media.overview}</p>
-						<p>{this.state.media.vote_count}</p>
-						<p>{this.state.media.popularity}</p>
+						<p>{this.state.media.vote_count} votes</p>
+						<p>{this.state.media.popularity} popularity</p>
 					</Card>
 				</_Layout>) 
 				: null

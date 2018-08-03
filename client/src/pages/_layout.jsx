@@ -1,11 +1,15 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
-import {Layout, Menu, Icon} from 'antd';
+import {Layout, Menu, Icon, Breadcrumb} from 'antd';
+import { withRouter } from 'react-router';
+import {capitalizeFirstLetter, createBreadcrumbs, createPageTitle} from '../utilities/utilities';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-export default class _Layout extends Component{
+class _Layout extends PureComponent{
 	render() {
+		const crumbs = createBreadcrumbs(this.props.mediaTitle, this.props.location.pathname);
+		const pageTitle = createPageTitle(this.props.mediaTitle, crumbs);
 		return(
 			<Layout style={{height: '100vh'}}>
 				<Sider
@@ -35,9 +39,21 @@ export default class _Layout extends Component{
 					</Menu>
 				</Sider>
 				<Layout>
-					<Header style={{ background: '#fff', padding: 0 }}>{this.props.pageType}</Header>
+					<Header style={{ background: '#fff', padding: 0 }}>{pageTitle}</Header>
 					<Content style={{ margin: '24px 16px 0' }}>
 						<div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+							<Breadcrumb>
+								<Breadcrumb.Item>
+									<Link to={'/'} >Home</Link>
+								</Breadcrumb.Item>
+								{crumbs.map(crumb => {
+									return (
+										<Breadcrumb.Item key={crumb}>
+											<Link to={`/${crumb}`} >{capitalizeFirstLetter(crumb)}</Link>
+										</Breadcrumb.Item>
+									);
+								})}
+							</Breadcrumb>
 							{this.props.children}
 						</div>
 					</Content>
@@ -49,3 +65,5 @@ export default class _Layout extends Component{
 		);
 	}
 }
+
+export default withRouter(_Layout);

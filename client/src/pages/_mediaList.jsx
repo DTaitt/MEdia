@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import { List } from 'antd';
 import _Layout from './_layout';
 import {initializeFilms} from 'redux/state/films/actions';
 import FilmItem from 'components/FilmItem/FilmItem';
 
-class _MediaList extends Component{
+class _MediaList extends PureComponent{
 
 	componentDidMount() {
 		this.props.initializeFilms();
