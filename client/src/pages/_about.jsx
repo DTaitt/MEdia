@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import _Layout from './_layout';
 
-export default class _About extends Component{
+export default class _About extends PureComponent{
 	render() {
 		return(
 			<_Layout pageType='about' >
