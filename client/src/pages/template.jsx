@@ -31,6 +31,12 @@ class Template extends PureComponent{
 							</span>
 						</Menu.Item>
 						<Menu.Item key="3">
+							<Icon type="laptop" />
+							<span className="nav-text">
+								<Link to='/tv'>TV</Link>
+							</span>
+						</Menu.Item>
+						<Menu.Item key="4">
 							<Icon type="info-circle-o" />
 							<span className="nav-text">
 								<Link to='/about'>About</Link>
