@@ -1,13 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {
-	BrowserRouter as Router,
 	Route,
+	Switch
 } from 'react-router-dom';
 import Loadable from 'react-loadable';
+
 import './App.css';
 
 const HomePage = Loadable({
-  loader: () => import('pages/home'),
+  loader: () => import('pages/home/home'),
   loading: () => false
 });
 
@@ -26,15 +27,13 @@ const MediaDetailPage = Loadable({
   loading: () => false
 });
 
-const App = () => (
-	<Router>
-		<Fragment>
-			<Route exact path="/" component={HomePage}/>
-			<Route exact path="/films" component={MediaListPage}/>
-			<Route exact path="/films/:film" component={MediaDetailPage}/>
-			<Route path="/about" component={AboutPage}/>
-		</Fragment>
-	</Router>
-);
-
-export default App;
+export default function App() {
+  return (
+      <Switch>
+        <Route exact path="/" component={HomePage}/>
+        <Route exact path="/films" component={MediaListPage}/>
+        <Route exact path="/films/:film" component={MediaDetailPage}/>
+        <Route path="/about" component={AboutPage}/>
+      </Switch>
+  );
+} 

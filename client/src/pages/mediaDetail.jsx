@@ -1,9 +1,10 @@
-import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { Card } from 'antd';
+
+import { initializeFilms } from 'redux/state/films/actions';
+import { parseURlId, URL } from 'utilities/utilities';
 import Template from './template';
-import {initializeFilms} from 'redux/state/films/actions';
-import {parseURlId, url} from 'utilities/utilities';
 
 class _MediaDetail extends PureComponent{
 
@@ -21,9 +22,9 @@ class _MediaDetail extends PureComponent{
 	}
 
 	setMedia() {
-		const media = this.props.films.filter(film => {
-			return film.id.toString() === parseURlId(this.props.match.params.film);
-		})[0];
+		const [media] = this.props.films.filter(film => {
+			return film.id.toString() === parseURlId(this.props.pathname);
+		});
 		this.setState({
 			media, 
 			hasMediaBeenSet: true
@@ -33,18 +34,20 @@ class _MediaDetail extends PureComponent{
 	render() {
 		return(
 			this.state.hasMediaBeenSet 
-				? (<Template pageType={`${this.props.match.path}`} mediaTitle={this.state.media.title} >
-					<Card 
-						title={this.state.media.title}
-						cover={<img alt={this.state.media.title} src={`${url.imgPrefix}${this.state.media.poster_path}`} />}
-						extra={this.state.media.vote_average}
-					>
-						<Card.Meta />
-						<p>{this.state.media.overview}</p>
-						<p>{this.state.media.vote_count} votes</p>
-						<p>{this.state.media.popularity} popularity</p>
-					</Card>
-				</Template>) 
+				? (
+					<Template pageType={`${this.props.pathname}`} mediaTitle={this.state.media.title} >
+						<Card 
+							title={this.state.media.title}
+							cover={<img alt={this.state.media.title} src={`${URL.IMGPREFIX}${this.state.media.poster_path}`} />}
+							extra={this.state.media.vote_average}
+						>
+							<Card.Meta />
+							<p>{this.state.media.overview}</p>
+							<p>{this.state.media.vote_count} votes</p>
+							<p>{this.state.media.popularity} popularity</p>
+						</Card>
+					</Template>
+				) 
 				: null
 		);
 	}
@@ -52,7 +55,8 @@ class _MediaDetail extends PureComponent{
 
 const mapStateToProps = state => ({
 	films: state.films.data,
-	hasBeenLoaded: state.films.hasBeenLoaded
+	hasBeenLoaded: state.films.hasBeenLoaded,
+	pathname: state.router.location.pathname
 });
 
 const mapDispatchToProps = ({

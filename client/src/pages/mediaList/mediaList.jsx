@@ -1,8 +1,9 @@
 import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { List } from 'antd';
+
 import Template from 'pages/template';
-import {initializeFilms} from 'redux/state/films/actions';
+import { initializeFilms } from 'redux/state/films/actions';
 import MediaItem from 'components/MediaItem/MediaItem';
 
 class _MediaList extends PureComponent{

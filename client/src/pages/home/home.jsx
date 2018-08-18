@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import Template from './template';
+import Template from 'pages/template';
 
 export default class _Home extends PureComponent{
 	render() {
