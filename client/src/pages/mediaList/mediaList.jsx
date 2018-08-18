@@ -4,24 +4,59 @@ import { List } from 'antd';
 
 import Template from 'pages/template';
 import { initializeFilms } from 'redux/state/films/actions';
+import { initializeShows } from 'redux/state/shows/actions';
 import MediaItem from 'components/MediaItem/MediaItem';
-import {initializeShows} from '../../redux/state/shows/actions';
-import withMedia from 'utilities/hoc';
 
 class _MediaList extends PureComponent{
+	constructor(props) {
+		super(props);
+		this.state = {
+			data: null
+		};
+	}
+
+	async componentDidMount() {
+		switch (this.props.pathname) {
+		case '/films':
+			await this.props.initializeFilms();
+			this.setState({data: this.props.films});
+			break;
+		case '/shows':
+			await this.props.initializeShows();
+			this.setState({data: this.props.shows});
+			break;
+		default:
+			this.setState({data:[]});
+		}
+	}
+
 	render() {
 		return(
-			<Template >
-				<List
-					dataSource={this.props.data}
-					grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
-					renderItem={item => (
-						<MediaItem item={item} />
-					)}
-				/>
-			</Template>
+			this.state.data 
+				? <Template pageType={`${this.props.pathname}`} >
+					<List
+						dataSource={this.state.data}
+						grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+						renderItem={item => (
+							<MediaItem item={item} />
+						)}
+					/>
+				</Template>
+				: null
 		);
 	}
 }
 
-export default withMedia(_MediaList, '/films');
+const mapStateToProps = state => ({
+	films: state.films.data,
+	shows: state.shows.data,
+	pathname: state.router.location.pathname,
+});
+
+const mapDispatchToProps = ({
+	initializeFilms,
+	initializeShows,
+});
+
+const ConnectedMediaList = connect(mapStateToProps, mapDispatchToProps)(_MediaList);
+export default ConnectedMediaList;
