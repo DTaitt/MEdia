@@ -6,7 +6,7 @@ import {capitalizeFirstLetter, createBreadcrumbs, createPageTitle} from '../util
 
 const { Header, Content, Footer, Sider } = Layout;
 
-class _Layout extends PureComponent{
+class Template extends PureComponent{
 	render() {
 		const crumbs = createBreadcrumbs(this.props.mediaTitle, this.props.location.pathname);
 		const pageTitle = createPageTitle(this.props.mediaTitle, crumbs);
@@ -66,4 +66,4 @@ class _Layout extends PureComponent{
 	}
 }
 
-export default withRouter(_Layout);
+export default withRouter(Template);

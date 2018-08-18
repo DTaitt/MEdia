@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {url} from 'utilities/utilities';
+import {URL} from 'utilities/utilities';
 
 export const initializeFilms = dispatch => {
 	return async (dispatch, getState) => {
@@ -7,7 +7,7 @@ export const initializeFilms = dispatch => {
 		if (hasBeenLoaded === false) {
 			dispatch({type: 'LOADING_FILMS'});
 			try {
-				const res = await axios.get(url.films);
+				const res = await axios.get(URL.FILMS);
 				dispatch({
 					type: 'RESOLVED_INITIALIZE_FILMS',
 					payload: res.data.results

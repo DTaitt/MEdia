@@ -1,9 +1,9 @@
 import React from 'react';
 import { List, Card } from 'antd';
 import {Link} from 'react-router-dom';
-import {url, removeSpaces} from 'utilities/utilities';
+import {createMediaUrl, createMediaImageUrl} from 'utilities/utilities';
 
-export default function FilmItem({item}){
+export default function MediaItem({item}){
 	const {
 		title,
 		id,
@@ -11,8 +11,10 @@ export default function FilmItem({item}){
 		vote_average,
 		release_date
 	} = item;
-	const mediaUrl = `/films/${removeSpaces(title)}-${id}`;
-	const mediaImageUrl = `${url.imgPrefix}${poster_path}`;
+
+	const mediaUrl = createMediaUrl(title, id);
+	const mediaImageUrl = createMediaImageUrl(poster_path);
+
 	return (
 		<List.Item>
 			<Card 
@@ -24,7 +26,6 @@ export default function FilmItem({item}){
 					title={<Link to={mediaUrl}>See More...</Link>}
 					description={release_date}
 				/>
-                
 			</Card>
 		</List.Item>
 	);

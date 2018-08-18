@@ -19,6 +19,7 @@ export function hasBeenLoadedReducer(hasBeenLoaded = false, action) {
 	}
 }
 
+// FILMS REDUCER
 export const filmsReducer = combineReducers({
 	data: dataReducer,
 	hasBeenLoaded: hasBeenLoadedReducer

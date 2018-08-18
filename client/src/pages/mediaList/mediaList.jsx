@@ -1,9 +1,10 @@
 import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { List } from 'antd';
-import _Layout from './_layout';
-import {initializeFilms} from 'redux/state/films/actions';
-import FilmItem from 'components/FilmItem/FilmItem';
+
+import Template from 'pages/template';
+import { initializeFilms } from 'redux/state/films/actions';
+import MediaItem from 'components/MediaItem/MediaItem';
 
 class _MediaList extends PureComponent{
 
@@ -13,15 +14,15 @@ class _MediaList extends PureComponent{
 
 	render() {
 		return(
-			<_Layout pageType={`${this.props.match.path}`} >
+			<Template pageType={`${this.props.match.path}`} >
 				<List
 					dataSource={this.props.films}
 					grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
 					renderItem={item => (
-						<FilmItem item={item} />
+						<MediaItem item={item} />
 					)}
 				/>
-			</_Layout>
+			</Template>
 		);
 	}
 }
