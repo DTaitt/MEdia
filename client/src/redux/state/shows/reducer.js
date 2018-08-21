@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 
 export function dataReducer(data = [], action) {
 	switch (action.type) {
-	case 'RESOLVED_INITIALIZE_FILMS':
+	case 'RESOLVED_INITIALIZE_SHOWS':
 		return [...data, ...action.payload];
 	default:
 		return data;
@@ -11,16 +11,16 @@ export function dataReducer(data = [], action) {
 
 export function hasBeenLoadedReducer(hasBeenLoaded = false, action) {
 	switch (action.type) {
-	case 'RESOLVED_INITIALIZE_FILMS':
-	case 'FILMS_ALREADY_LOADED':
+	case 'RESOLVED_INITIALIZE_SHOWS':
+	case 'SHOWS_ALREADY_LOADED':
 		return true;
 	default:
 		return hasBeenLoaded;
 	}
 }
 
-// FILMS REDUCER
-export const filmsReducer = combineReducers({
+// SHOWS REDUCER
+export const showsReducer = combineReducers({
 	data: dataReducer,
 	hasBeenLoaded: hasBeenLoadedReducer
 });

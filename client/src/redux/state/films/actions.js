@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {URL} from 'utilities/utilities';
 
-export const initializeFilms = dispatch => {
+export const initializeFilms = () => {
 	return async (dispatch, getState) => {
 		const hasBeenLoaded = getState().films.hasBeenLoaded;
 		if (hasBeenLoaded === false) {

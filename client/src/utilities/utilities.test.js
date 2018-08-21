@@ -1,4 +1,4 @@
-import {url, removeSpaces, createMediaUrl, createMediaImageUrl, parseURlId, createBreadcrumbs, parseBreadcrumbPath, replaceLastElement, capitalizeFirstLetter, createPageTitle} from './utilities';
+import {url, removeSpaces, createMediaUrl, createMediaImageUrl, parseUrlId, createBreadcrumbs, parseBreadcrumbPath, replaceLastElement, capitalizeFirstLetter, createPageTitle} from './utilities';
 
 describe('removeSpaces', () => {
 	it('removes spaces when each word is seperated with a space and replaces spaces with a "-" ', () => {
@@ -26,7 +26,7 @@ describe('createMediaImageUrl', () => {
 
 describe('parseUrlId', () => {
 	it('parses url id', () => {
-		expect(parseURlId('this-is-a-title-1234')).toBe('1234');
+		expect(parseUrlId('this-is-a-title-1234')).toBe('1234');
 	});
 });
 

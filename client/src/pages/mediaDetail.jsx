@@ -3,64 +3,84 @@ import { connect } from 'react-redux';
 import { Card } from 'antd';
 
 import { initializeFilms } from 'redux/state/films/actions';
-import { parseURlId, URL } from 'utilities/utilities';
+import { initializeShows } from 'redux/state/shows/actions';
+import { setCurrentMedia } from 'redux/state/currentMedia/actions.';
 import Template from './template';
+import { 
+	parseUrlId, 
+	parseBreadcrumbPath, 
+	updateMedia 
+} from 'utilities/utilities';
 
 class _MediaDetail extends PureComponent{
 
 	constructor(props) {
 		super();
 		this.state = {
-			media: null,
-			hasMediaBeenSet: false,
+			data: [],
 		};
+		this.fetchMedia = this.fetchMedia.bind(this);
+		this.setMedia = this.setMedia.bind(this);
 	}
 
-	async componentDidMount() {
-		await this.props.initializeFilms();
-		this.setMedia();
+	componentDidMount() {
+		this.props.hasCurrentMediaBeenSet === false && this.fetchMedia();
+	}
+
+	async fetchMedia() {
+		const [pageType] = parseBreadcrumbPath(this.props.pathname);
+		switch (pageType) {
+		case 'films':
+			await this.props.initializeFilms();
+			this.setState({data: this.props.films}, () => {this.setMedia();});
+			break;
+		case 'shows':
+			await this.props.initializeShows();
+			this.setState({data: this.props.shows}, () => {this.setMedia();});
+			break;
+		default:
+			this.setState({data:[]});
+		}
 	}
 
 	setMedia() {
-		const [media] = this.props.films.filter(film => {
-			return film.id.toString() === parseURlId(this.props.pathname);
+		const [media] = this.state.data.filter(media => {
+			return media.id.toString() === parseUrlId(this.props.pathname);
 		});
-		this.setState({
-			media, 
-			hasMediaBeenSet: true
-		});
+		const updatedMedia = updateMedia(media);
+		this.props.setCurrentMedia(updatedMedia);
 	}
 
 	render() {
 		return(
-			this.state.hasMediaBeenSet 
-				? (
-					<Template pageType={`${this.props.pathname}`} mediaTitle={this.state.media.title} >
-						<Card 
-							title={this.state.media.title}
-							cover={<img alt={this.state.media.title} src={`${URL.IMGPREFIX}${this.state.media.poster_path}`} />}
-							extra={this.state.media.vote_average}
-						>
-							<Card.Meta />
-							<p>{this.state.media.overview}</p>
-							<p>{this.state.media.vote_count} votes</p>
-							<p>{this.state.media.popularity} popularity</p>
-						</Card>
-					</Template>
-				) 
-				: null
+			<Template pageType={`${this.props.pathname}`} mediaTitle={this.props.currentMedia.mediaTitle} >
+				<Card 
+					title={this.props.currentMedia.mediaTitle}
+					cover={<img alt={this.props.currentMedia.mediaTitle} src={this.props.currentMedia.imageUrl} />}
+					extra={this.props.currentMedia.vote_average}
+				>
+					<Card.Meta />
+					<p>{this.props.currentMedia.overview}</p>
+					<p>{this.props.currentMedia.vote_count} votes</p>
+					<p>{this.props.currentMedia.popularity} popularity</p>
+				</Card>
+			</Template>
 		);
 	}
 }
 
 const mapStateToProps = state => ({
 	films: state.films.data,
-	hasBeenLoaded: state.films.hasBeenLoaded,
-	pathname: state.router.location.pathname
+	shows: state.shows.data,
+	pathname: state.router.location.pathname,
+	currentMedia: state.currentMedia.data,
+	hasCurrentMediaBeenSet: state.currentMedia.hasBeenSet,
 });
 
 const mapDispatchToProps = ({
-	initializeFilms
+	initializeFilms,
+	initializeShows,
+	setCurrentMedia,
 });
 
 const ConnectedMediaDetail = connect(mapStateToProps, mapDispatchToProps)(_MediaDetail);
