@@ -34,6 +34,7 @@ export default function App() {
         <Route exact path="/films" component={MediaListPage}/>
         <Route exact path="/shows" component={MediaListPage}/>
         <Route exact path="/films/:film" component={MediaDetailPage}/>
+        <Route exact path="/shows/:show" component={MediaDetailPage}/>
         <Route path="/about" component={AboutPage}/>
       </Switch>
   );

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {URL} from 'utilities/utilities';
+import { URL } from 'utilities/utilities';
 
-export const initializeShows = dispatch => {
+export const initializeShows = () => {
 	return async (dispatch, getState) => {
 		const hasBeenLoaded = getState().shows.hasBeenLoaded;
 		if (hasBeenLoaded === false) {

@@ -11,11 +11,20 @@ class _MediaList extends PureComponent{
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: null
+			data: [],
 		};
+		this.fetchMedia = this.fetchMedia.bind(this);
 	}
 
-	async componentDidMount() {
+	componentDidMount() {
+		this.fetchMedia();
+	}
+
+	componentDidUpdate(prevProps) {
+		this.props.pathname !== prevProps.pathname && this.fetchMedia();
+	}
+
+	async fetchMedia() {
 		switch (this.props.pathname) {
 		case '/films':
 			await this.props.initializeFilms();
@@ -33,12 +42,15 @@ class _MediaList extends PureComponent{
 	render() {
 		return(
 			this.state.data 
-				? <Template pageType={`${this.props.pathname}`} >
+				? <Template>
 					<List
 						dataSource={this.state.data}
 						grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
 						renderItem={item => (
-							<MediaItem item={item} />
+							<MediaItem 
+								item={item} 
+								pageType={`${this.props.pathname.split('/')[1]}`}  
+							/>
 						)}
 					/>
 				</Template>

@@ -15,7 +15,7 @@ export function hasBeenLoadedReducer(hasBeenLoaded = false, action) {
 	case 'SHOWS_ALREADY_LOADED':
 		return true;
 	default:
-		return false;
+		return hasBeenLoaded;
 	}
 }
 

@@ -1,37 +1,47 @@
 import React from 'react';
 import { List, Card } from 'antd';
-import {Link} from 'react-router-dom';
-import {createMediaUrl, createMediaImageUrl} from 'utilities/utilities';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default function MediaItem({item}){
-	const {
-		title = null,
-		name = null,
-		id,
-		poster_path,
-		vote_average,
-		release_date = null,
-		first_air_date = null
-	} = item;
+import { setCurrentMedia } from 'redux/state/currentMedia/actions.';
+import { updateMedia } from 'utilities/utilities';
 
-	const mediaTitle = title || name;
-	const releaseDate = release_date || first_air_date;
+function MediaItem({item, setCurrentMedia, pageType}){
 
-	const mediaUrl = createMediaUrl(mediaTitle, id);
-	const mediaImageUrl = createMediaImageUrl(poster_path);
+	const media = updateMedia(item, pageType);
 
 	return (
 		<List.Item>
 			<Card 
-				title={<Link to={mediaUrl}>{mediaTitle}</Link>}
-				cover={<img alt={mediaTitle} src={mediaImageUrl} />}
-				extra={vote_average}
+				title={
+					<Link 
+						to={media.url}
+						onClick={() => {setCurrentMedia(media);}}
+					>
+						{media.mediaTitle}
+					</Link>}
+				cover={<img alt={media.mediaTitle} src={media.imageUrl} />}
+				extra={media.vote_average}
 			>
 				<Card.Meta
-					title={<Link to={mediaUrl}>See More...</Link>}
-					description={releaseDate}
+					title={
+						<Link 
+							to={media.url}
+							onClick={() => {setCurrentMedia(media);}}
+						>
+						See More...
+						</Link>
+					}
+					description={media.releaseDate}
 				/>
 			</Card>
 		</List.Item>
 	);
 }
+
+const mapDispatchToProps = ({
+	setCurrentMedia,
+});
+
+const ConnectedMediaItem = connect(null, mapDispatchToProps)(MediaItem);
+export default ConnectedMediaItem;
