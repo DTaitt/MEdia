@@ -16,9 +16,7 @@ class _MediaDetail extends PureComponent{
 
 	constructor(props) {
 		super();
-		this.state = {
-			data: [],
-		};
+		this.state = {};
 		this.fetchMedia = this.fetchMedia.bind(this);
 		this.setMedia = this.setMedia.bind(this);
 	}
@@ -32,19 +30,19 @@ class _MediaDetail extends PureComponent{
 		switch (pageType) {
 		case 'films':
 			await this.props.initializeFilms();
-			this.setState({data: this.props.films}, () => {this.setMedia();});
+			this.setMedia(this.props.films);
 			break;
 		case 'shows':
 			await this.props.initializeShows();
-			this.setState({data: this.props.shows}, () => {this.setMedia();});
+			this.setMedia(this.props.shows);
 			break;
 		default:
 			this.setState({data:[]});
 		}
 	}
 
-	setMedia() {
-		const [media] = this.state.data.filter(media => {
+	setMedia(mediaArray) {
+		const [media] = mediaArray.filter(media => {
 			return media.id.toString() === parseUrlId(this.props.pathname);
 		});
 		const updatedMedia = updateMedia(media);

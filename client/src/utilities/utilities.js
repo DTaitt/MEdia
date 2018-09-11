@@ -1,5 +1,5 @@
 export const URL = {
-	FILMS: `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_MOVIE_DB_KEY}&page=1&primary_release_year=2018&vote_average.gte=7`,
+	FILMS: `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_MOVIE_DB_KEY}&page=1&vote_average.gte=7`,
 	TV: `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_MOVIE_DB_KEY}&page=1&timezone=America%2FNew_York&include_null_first_air_dates=true&vote_average.gte=7`,
 	IMGPREFIX: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2',
 	createMediaUrl(pageType, title, id) {
@@ -63,6 +63,7 @@ export function updateMedia(media, pageType) {
 			releaseDate,
 			url,
 			imageUrl,
+			pageType,
 		}
 	};
 

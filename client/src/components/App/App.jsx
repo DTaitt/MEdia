@@ -27,6 +27,11 @@ const MediaDetailPage = Loadable({
   loading: () => false
 });
 
+const ProfilePage = Loadable({
+  loader: () => import('pages/profile'),
+  loading: () => false
+});
+
 export default function App() {
   return (
       <Switch>
@@ -35,6 +40,7 @@ export default function App() {
         <Route exact path="/shows" component={MediaListPage}/>
         <Route exact path="/films/:film" component={MediaDetailPage}/>
         <Route exact path="/shows/:show" component={MediaDetailPage}/>
+        <Route path="/profile" component={ProfilePage}/>
         <Route path="/about" component={AboutPage}/>
       </Switch>
   );

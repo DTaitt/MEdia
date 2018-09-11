@@ -1,14 +1,13 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {Layout, Menu, Icon, Breadcrumb} from 'antd';
+import { Link } from 'react-router-dom';
+import { Layout, Menu, Icon, Breadcrumb } from 'antd';
 import { withRouter } from 'react-router';
-import {capitalizeFirstLetter, createBreadcrumbs, createPageTitle} from '../utilities/utilities';
+import { capitalizeFirstLetter, createBreadcrumbs } from '../utilities/utilities';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 function Template(props){
 	const crumbs = createBreadcrumbs(props.mediaTitle, props.location.pathname);
-	const pageTitle = createPageTitle(props.mediaTitle, crumbs);
 	return(
 		<Layout style={{height: '100vh'}}>
 			<Sider
@@ -41,10 +40,18 @@ function Template(props){
 							<Link to='/about'>About</Link>
 						</span>
 					</Menu.Item>
+					<Menu.Item key="5">
+						<Icon type="user" />
+						<span className="nav-text">
+							<Link to='/profile'>Profile</Link>
+						</span>
+					</Menu.Item>
 				</Menu>
 			</Sider>
 			<Layout>
-				<Header style={{ background: '#fff', padding: 0 }}>{pageTitle}</Header>
+				<Header style={{ background: '#001529', padding: 0}}>
+					<h1 style={{textAlign: 'center', color: 'white'}} >My Media</h1>
+				</Header>
 				<Content style={{ margin: '24px 16px 0' }}>
 					<div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
 						<Breadcrumb>

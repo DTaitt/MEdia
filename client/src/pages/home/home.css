@@ -1,0 +1,10 @@
+.hero {
+  background-image: url("https://esquire.com.gr/Content/ImagesDatabase/p/crop/both/31/31caca5bb01e42c49f634b5af988dd07.jpg?quality=60&404=default&v=02");
+  min-height: inherit;
+  background-size: cover;
+  padding: 10px; }
+  .hero p {
+    line-height: 1.3em;
+    font-size: 20px;
+    font-style: italic;
+    color: #192c3e; }

@@ -45,7 +45,7 @@ class _MediaList extends PureComponent{
 				? <Template>
 					<List
 						dataSource={this.state.data}
-						grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+						grid={{ gutter: 16, xs: 1, sm: 2, md: 2, lg: 3, xl: 6, xxl: 3 }}
 						renderItem={item => (
 							<MediaItem 
 								item={item} 

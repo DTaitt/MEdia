@@ -1,14 +1,17 @@
 import React from 'react';
-import { List, Card } from 'antd';
+import { List, Card, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { setCurrentMedia } from 'redux/state/currentMedia/actions.';
 import { updateMedia } from 'utilities/utilities';
+import { toggleFavorite } from 'redux/state/favorites/actions';
 
-function MediaItem({item, setCurrentMedia, pageType}){
-
-	const media = updateMedia(item, pageType);
+function MediaItem(props){
+	const media = updateMedia(props.item, props.pageType);
+	const isInFav = props.favorites.some(fav => {
+		return fav.id === media.id;
+	});
 
 	return (
 		<List.Item>
@@ -16,7 +19,7 @@ function MediaItem({item, setCurrentMedia, pageType}){
 				title={
 					<Link 
 						to={media.url}
-						onClick={() => {setCurrentMedia(media);}}
+						onClick={() => {props.setCurrentMedia(media);}}
 					>
 						{media.mediaTitle}
 					</Link>}
@@ -27,21 +30,30 @@ function MediaItem({item, setCurrentMedia, pageType}){
 					title={
 						<Link 
 							to={media.url}
-							onClick={() => {setCurrentMedia(media);}}
+							onClick={() => {props.setCurrentMedia(media);}}
 						>
 						See More...
 						</Link>
 					}
-					description={media.releaseDate}
+				/>
+				<Icon 
+					type={ isInFav ? 'heart' : 'heart-o'}
+					style={ isInFav ? {color:'red'} : {}}
+					onClick={() => props.toggleFavorite(media)}
 				/>
 			</Card>
 		</List.Item>
 	);
 }
 
-const mapDispatchToProps = ({
-	setCurrentMedia,
+const mapStateToProps = state => ({
+	favorites: state.favorites,
 });
 
-const ConnectedMediaItem = connect(null, mapDispatchToProps)(MediaItem);
+const mapDispatchToProps = ({
+	setCurrentMedia,
+	toggleFavorite
+});
+
+const ConnectedMediaItem = connect(mapStateToProps, mapDispatchToProps)(MediaItem);
 export default ConnectedMediaItem;
